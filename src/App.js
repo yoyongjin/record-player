@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import styled from "styled-components";
+import ModalPortal from "./components/ModalPortal";
+import RecordModal from "./components/RecordModal";
 
-function App() {
+const App = () => {
+  const [isModalOn, setIsModalOn] = useState(false);
+
+  const modalToggleHandler = () => {
+    setIsModalOn(!isModalOn);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <button onClick={modalToggleHandler}>play</button>
+      <ModalPortal>
+        {isModalOn && <RecordModal onClose={modalToggleHandler} />}
+      </ModalPortal>
+    </AppContainer>
   );
-}
+};
+
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
 export default App;
